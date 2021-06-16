@@ -1,11 +1,16 @@
 
-import { Box, Flex, Heading, Button, Icon, Table, Th, Tr,Td,  Thead, Checkbox, Tbody, Text} from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Icon, Table, Th, Tr,Td,  Thead, Checkbox, Tbody, Text, useBreakpointValue} from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { Pagination } from "../../components/Pagination";
+import Link from "next/link";
 
 export default function UserList(){
+    const isWideVersion= useBreakpointValue({
+        base:false,
+        lg:true,
+    })
     return(
         <Box>
             <Header/>
@@ -14,28 +19,30 @@ export default function UserList(){
                 <Box flex="1" borderRadius={8} bg="gray.800" p="8">
                     <Flex mb="8" justify="space-between" align="center">
                         <Heading size="lg" fontWeight="normal">Usuários</Heading>
-                        <Button
-                            as="a"
-                            size="sm"
-                            fontSize="sm"
-                            colorScheme="pink"
-                            leftIcon={<Icon as={RiAddLine}/>}
-                        >
-                            Criar novo
-                        </Button>
+                        <Link href="/users/create" passHref>
+                            <Button
+                                as="a"
+                                size="sm"
+                                fontSize="sm"
+                                colorScheme="pink"
+                                leftIcon={<Icon as={RiAddLine}/>}
+                            >
+                                Criar novo
+                            </Button>
+                        </Link>
                     </Flex>
                     <Table colorScheme="whiteAlpha">
                         <Thead>
                             <Tr>
-                                <Th px="6" color="gray.300" width="8">
+                                <Th px={["4","4","6"]} color="gray.300" width="8">
                                     <Checkbox colorScheme="pink"/>
                                 </Th>
                                 <Th>
                                     Usuário
                                 </Th>
-                                <Th>
+                                {isWideVersion &&<Th>
                                     Data de cadastro
-                                </Th>
+                                </Th>}
                                 <Th w="8">
 
                                 </Th>
@@ -44,7 +51,7 @@ export default function UserList(){
                         </Thead>
                         <Tbody>
                             <Tr>
-                                <Td px="6">
+                                <Td px={["4","4","6"]}>
                                     <Checkbox colorScheme="pink"/>
                                 </Td>
                                 <Td>
@@ -53,9 +60,9 @@ export default function UserList(){
                                         <Text fontSize="sm" color="gray.300">matheus.frade@pixter.com.br</Text>
                                     </Box>
                                 </Td>
-                                <Td>
+                                {isWideVersion &&<Td>
                                     14 de Junho, 2021
-                                </Td>
+                                </Td>}
                                 <Td>
                                     <Button
                                         as="a"
@@ -64,7 +71,7 @@ export default function UserList(){
                                         colorScheme="pink"
                                         leftIcon={<Icon as={RiPencilLine}/>}
                                     >
-                                        Editar
+                                        {isWideVersion ? "Editar":""}
                                     </Button>
                                 </Td>
                             </Tr>
