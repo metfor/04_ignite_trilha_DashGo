@@ -4,7 +4,7 @@ import { NotificationNav } from "../Header/NotificationsNav"
 import { Profile } from "./Profile"
 import { Search } from "./Search"
 import { useSidebar } from "../../contexts/SidebarContext"
-import { RiMenuLine } from "react-icons/ri"
+
 export function Header(){
     const isWideVersion = useBreakpointValue({
         base:false,
@@ -24,7 +24,7 @@ export function Header(){
     >{!isWideVersion &&(
         <IconButton
             aria-label="Open navigation"
-            as={RiMenuLine}
+           
             fontSize="24"
             variant="unstyled"
             onClick={onOpen}
