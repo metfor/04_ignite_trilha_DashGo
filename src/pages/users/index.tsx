@@ -6,14 +6,15 @@ import { Pagination } from "../../components/Pagination";
 import Link from "next/link";
 
 import {useQuery}from "react-query";
+import { api } from "../../services/api";
 
 export default function UserList(){
     //pegando dados do usuario e formatando
     //Usando o react query os dados ficam guardados em cache, ajuda a controlar os estados (serever-state libary)
     //stale while revalidate
     const  {data,isLoading, isFetching,error} = useQuery("users",async()=>{
-        const response=await fetch("http://localhost:3000/api/users");
-        const data = await response.json();
+        const {data}=await api.get("http://localhost:3000/api/users");
+       
         const users = data.users.map(user =>{
             return{
                 id:user.id,
