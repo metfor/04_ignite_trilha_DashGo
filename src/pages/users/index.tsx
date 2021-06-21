@@ -9,7 +9,7 @@ import {useQuery}from "react-query";
 
 export default function UserList(){
     //pegando dados do usuario e formatando
-    //Usando o react query os dados ficam guardados em cache
+    //Usando o react query os dados ficam guardados em cache, ajuda a controlar os estados (serever-state libary)
     //stale while revalidate
     const  {data,isLoading, error} = useQuery("users",async()=>{
         const response=await fetch("http://localhost:3000/api/users");
@@ -27,6 +27,8 @@ export default function UserList(){
         }) ;  
     
          return users;
+    },{
+        staleTime:1000*5,
     });
     //verificando wideVersion
     const isWideVersion= useBreakpointValue({
