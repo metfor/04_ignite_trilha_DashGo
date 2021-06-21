@@ -11,13 +11,14 @@ export default function UserList(){
     //pegando dados do usuario e formatando
     //Usando o react query os dados ficam guardados em cache, ajuda a controlar os estados (serever-state libary)
     //stale while revalidate
-    const  {data,isLoading, error} = useQuery("users",async()=>{
+    const  {data,isLoading, isFetching,error} = useQuery("users",async()=>{
         const response=await fetch("http://localhost:3000/api/users");
         const data = await response.json();
         const users = data.users.map(user =>{
             return{
                 id:user.id,
-                name:user.email,
+                name:user.name,
+                email:user.email,
                 createdAt:new Date(user.createdAt).toLocaleString("pt-BR",{
                     day:"2-digit",
                     month:"long",
@@ -75,6 +76,7 @@ export default function UserList(){
                                 </Th>
                                 <Th>
                                     Usuário
+                                    {!isLoading && isFetching && <Spinner size="sm" color="gray.500" ml="4"/> }
                                 </Th>
                                 {isWideVersion &&<Th>
                                     Data de cadastro
