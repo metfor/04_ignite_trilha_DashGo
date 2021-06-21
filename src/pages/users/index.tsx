@@ -5,33 +5,13 @@ import { Sidebar } from "../../components/Sidebar";
 import { Pagination } from "../../components/Pagination";
 import Link from "next/link";
 
-import {useQuery}from "react-query";
-import { api } from "../../services/api";
+
+import { useUsers } from "../../services/hooks/useUser";
 
 export default function UserList(){
-    //pegando dados do usuario e formatando
-    //Usando o react query os dados ficam guardados em cache, ajuda a controlar os estados (serever-state libary)
-    //stale while revalidate
-    const  {data,isLoading, isFetching,error} = useQuery("users",async()=>{
-        const {data}=await api.get("http://localhost:3000/api/users");
-       
-        const users = data.users.map(user =>{
-            return{
-                id:user.id,
-                name:user.name,
-                email:user.email,
-                createdAt:new Date(user.createdAt).toLocaleString("pt-BR",{
-                    day:"2-digit",
-                    month:"long",
-                    year:"numeric"
-                })
-            };
-        }) ;  
     
-         return users;
-    },{
-        staleTime:1000*5,
-    });
+    //stale while revalidate
+    const  {data,isLoading, isFetching,error} = useUsers()
     //verificando wideVersion
     const isWideVersion= useBreakpointValue({
         base:false,
