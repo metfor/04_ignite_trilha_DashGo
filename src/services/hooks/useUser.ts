@@ -39,6 +39,6 @@ export function useUsers(page:number){
     //pegando dados do usuario e formatando
     //Usando o react query os dados ficam guardados em cache, ajuda a controlar os estados (serever-state libary)
    return useQuery(['users',page],()=>getUsers(page),{
-        staleTime:1000*5,
+        staleTime:1000*60*10,
     });
 }
